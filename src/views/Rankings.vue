@@ -77,8 +77,9 @@ const goBind = () => {
 
 const fetchRankings = async (page: number = 1) => {
   pageNo.value = page;
+  const timestamp = new Date().getTime();
   try {
-    const response = await axios.get('http://coaixy.bluedog233.cn/front/rankings', {
+    const response = await axios.get(`http://coaixy.bluedog233.cn/front/rankings?ts=${timestamp}`, {
       params: {
         pageNum: pageNo.value,
         pageSize: pageSize.value,
