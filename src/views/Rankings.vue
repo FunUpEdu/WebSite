@@ -16,7 +16,7 @@
           </el-text>
           <el-divider direction="vertical" />
           <el-button type="primary" @click="edit" link>修改</el-button>
-            <el-table :data="rankingsData.records" style="width: 100%">
+            <el-table :data="rankingsData.records" style="width: 100%" :row-class-name="tableRowClassName">
                 <el-table-column label="排名" type="index" align="center" width="80"/>
                 <el-table-column prop="nickName" label="昵称" align="center"/>
                 <el-table-column prop="totalCount" label="总次数" align="center"/>
@@ -174,6 +174,22 @@ const getUserInfo = async () => {
     console.error("错误:", error);
   }
 }
+const tableRowClassName = ({
+  row,
+  rowIndex,
+}: {
+  row: RankingsData['records']
+  rowIndex: number
+}) => {
+  if (rowIndex === 0) {
+    return 'success-row'
+  } else if (rowIndex === 1) {
+    return 'warning-row'
+  } else if (rowIndex === 2) {
+    return 'info-row'
+  }
+  return ''
+}
 onMounted(() => {
   fetchRankings();
   getUserInfo();
@@ -205,4 +221,5 @@ onMounted(() => {
   flex: 1; /* 让按钮均匀分布 */
   max-width: 120px; /* 可选：限制按钮的最大宽度 */
 }
+
 </style>
