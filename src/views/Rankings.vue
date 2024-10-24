@@ -1,13 +1,15 @@
 <template>
-  <div class="rankings">
-    <el-card style="max-width: 100%;max-height:100%" class="rankings-card">
-        <template #header>
-        <div class="card-header" style="text-align: center">
-            <el-text tag="b" size="large">排行榜TOP10</el-text>
+  <div class="common-layout">
+    <el-container style="height: 100vh;">
+      <el-header class="common-header">
+        <div class="header-title" style="text-align: center">
+          <el-text tag="b" size="large">排行榜TOP10</el-text>
         </div>
-        </template>
-        <!-- 表格 -->
-        <div class="rankings-table">
+        <el-divider class="common-divider" />
+        
+      </el-header>
+      <el-main class="common-main">
+        <div class="main-header">
           <el-text size="large">
             <el-icon>
               <Avatar />
@@ -16,37 +18,45 @@
           </el-text>
           <el-divider direction="vertical" />
           <el-button type="primary" @click="edit" link>修改</el-button>
-            <el-table :data="rankingsData.records" style="width: 100%" :row-class-name="tableRowClassName">
-                <el-table-column label="排名" type="index" align="center" width="80"/>
-                <el-table-column prop="nickName" label="昵称" align="center"/>
-                <el-table-column prop="totalCount" label="总次数" align="center"/>
-                <el-table-column prop="averageSpeed" label="平均速度" align="center"/>
-            </el-table>
         </div>
-        <el-text>注意：排名仅适用于已绑定用户</el-text>
-        <template #footer >
-            <div class="footer-buttons">
-                <el-button type="primary" plain class="button" @click="goHome">我的数据</el-button>
-                <el-button type="primary" plain class="button" @click="goToday">今日数据</el-button>
-                <el-button type="primary" plain class="button" @click="goBind">重新绑定</el-button>
-            </div>
-            <br>
-            <div style="text-align: center"><el-text size="small"> 悦动金职 © 2024 </el-text></div>
-        </template>
-    </el-card>
+        <!-- 表格 -->
+        <div class="table-container">
+          <el-table
+            :data="rankingsData.records"
+            :row-class-name="tableRowClassName"
+            v-loading="loading"
+            element-loading-text="数据加载中..."
+          >
+            <el-table-column label="排名" type="index" align="center" width="80" fixed />
+            <el-table-column prop="nickName" label="昵称" align="center" fixed />
+            <el-table-column prop="totalCount" label="总次数" align="center" />
+            <el-table-column prop="averageSpeed" label="平均速度" align="center" />
+          </el-table>
+          <el-text>注意：排名仅适用于已绑定用户</el-text>
+        </div>
+        
+      </el-main>
+      <el-footer class="common-footer">
+        
+        <el-button type="primary" plain @click="goHome">我的数据</el-button>
+        <el-button type="primary" plain @click="goToday">今日数据</el-button>
+        <el-button type="primary" plain @click="goBind">重新绑定</el-button>
+        <br>
+        <el-text size="small">悦动金职 © 2024</el-text>
+      </el-footer>
+    </el-container>
+
     <!-- 修改昵称对话框 -->
-        <el-dialog v-model="centerDialogVisible" title="修改昵称" width="300" align-center>
-          <el-input v-model="newNickName" style="width: 270px" maxlength="10" placeholder="请输入要修改的昵称" show-word-limit
-            type="text" />
-          <template #footer>
-            <div class="dialog-footer">
-              <el-button @click="centerDialogVisible = false">取消</el-button>
-              <el-button type="primary" @click="editNickName">确定</el-button>
-            </div>
-          </template>
-        </el-dialog>
+    <el-dialog v-model="centerDialogVisible" title="修改昵称" width="300" align-center>
+      <el-input v-model="newNickName" style="width: 270px" maxlength="10" placeholder="请输入要修改的昵称" show-word-limit type="text" />
+      <template #footer>
+        <div class="dialog-footer">
+          <el-button @click="centerDialogVisible = false">取消</el-button>
+          <el-button type="primary" @click="editNickName">确定</el-button>
+        </div>
+      </template>
+    </el-dialog>
   </div>
-  
 </template>
 
 <script lang="ts" setup>
@@ -173,7 +183,7 @@ const getUserInfo = async () => {
   } catch (error) {
     console.error("错误:", error);
   }
-}
+};
 const tableRowClassName = ({
   row,
   rowIndex,
@@ -181,45 +191,44 @@ const tableRowClassName = ({
   row: RankingsData['records']
   rowIndex: number
 }) => {
-  if (rowIndex === 0) {
+  console.log('row:', rowIndex);
+  if (rowIndex == 0) {
     return 'success-row'
   } else if (rowIndex === 1) {
     return 'warning-row'
   } else if (rowIndex === 2) {
     return 'info-row'
-  }
+  } 
   return ''
-}
+};
 onMounted(() => {
   fetchRankings();
   getUserInfo();
 });
 </script>
 
-<style scoped>
-.rankings {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-image: linear-gradient(-225deg, #E3FDF5, #FFE6FA 100%);
-}
-
-.rankings-card {
+<style>
+.common-layout {
   height: 100vh;
-  width: 100vw;
-  box-shadow: 0 0 10px #ccc;
-  opacity: 0.8;
 }
-
-.footer-buttons {
-  display: flex;
-  justify-content: center; /* 居中对齐 */
-  gap: 20px; /* 按钮之间的间隔 */
+.common-header {
+  margin-top: 10px;
+  padding: 0px;
 }
-
-.button {
-  flex: 1; /* 让按钮均匀分布 */
-  max-width: 120px; /* 可选：限制按钮的最大宽度 */
+.common-main {
+  flex-grow: 1; /* 主区域占满剩余空间 */
 }
-
+.common-footer {
+  text-align: center;
+  margin-top: auto; /* 确保 footer 固定在最下面 */
+}
+.el-table .warning-row {
+  --el-table-tr-bg-color: var(--el-color-warning-light-9);
+}
+.el-table .success-row {
+  --el-table-tr-bg-color: var(--el-color-success-light-9);
+}
+.el-table .info-row {
+  --el-table-tr-bg-color: var(--el-color-info-light-9);
+}
 </style>

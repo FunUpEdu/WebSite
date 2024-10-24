@@ -42,9 +42,9 @@ const login = async () => {
       return
     }
 
-  // 调试用
-  uid = 'olcXK6OopZl8ECIYnZuKEREbklSw'
-  sign = 'c6c538c12d528ca4680a6c84195d1a45'
+    // 调试用
+    //uid = 'olcXK6OopZl8ECIYnZuKEREbklSw'
+    //sign = 'c6c538c12d528ca4680a6c84195d1a45'
     // 创建 URLSearchParams 对象
     const formData = new URLSearchParams();
     formData.append('uid', uid);

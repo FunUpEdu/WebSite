@@ -274,7 +274,7 @@ const togglePush = async () => {
   </div>
 </template>
 
-<style>
+<style scoped>
 .header-title {
   font-size: 25px;
   font-weight: bold;
