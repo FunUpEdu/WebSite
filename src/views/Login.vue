@@ -43,8 +43,8 @@ const login = async () => {
     }
 
   // 调试用
-  //uid = 'of1jk6q6asDKnTaIBiarvxvrIFSM'
-  //sign = '58ebdda238d69bfa616bd1ae9a873fe1'
+  uid = 'olcXK6OopZl8ECIYnZuKEREbklSw'
+  sign = 'c6c538c12d528ca4680a6c84195d1a45'
     // 创建 URLSearchParams 对象
     const formData = new URLSearchParams();
     formData.append('uid', uid);
