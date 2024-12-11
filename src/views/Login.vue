@@ -53,7 +53,7 @@ const login = async () => {
     formData.append('sid', loginForm.username);
 
     // 发送 POST 请求
-    axios.post('http://coaixy.bluedog233.cn/front/bind', formData)
+    axios.post('http://yuedong.diviner.fun/front/bind', formData)
       .then(res => {
         console.log('Response:', res)
         if (res.data.code === 200) {
@@ -94,7 +94,7 @@ const login = async () => {
         <el-button type="primary" class="login-btn" @click="login">登录</el-button>
       </el-form>
       <template #footer>
-        <div style="text-align: center"><el-text size="small"> 悦动金职 © 2024 </el-text></div>
+        <div style="text-align: center"><el-text size="small"> 金职学创 © 2024 </el-text></div>
       </template>
     </el-card>
   </div>

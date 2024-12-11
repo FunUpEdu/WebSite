@@ -76,14 +76,14 @@ const getData = async () => {
     Loading.value = true;
     userData.value.openid = getUidFromURL();
     // 校验sign
-    const verifyFlag = await axios.post(`http://coaixy.bluedog233.cn/front/verify_sign`, formData).then(res => {
+    const verifyFlag = await axios.post(`http://yuedong.diviner.fun/front/verify_sign`, formData).then(res => {
       console.log('Response:', res)
       if (res.data.data !== true) {
         ElMessage.error('sign校验失败');
         return;
       }
     })
-    const response = await axios.post(`http://coaixy.bluedog233.cn/front/get_all_data`, formData).then(res => {
+    const response = await axios.post(`http://yuedong.diviner.fun/front/get_all_data`, formData).then(res => {
       tableData.value = res.data.data.runnerDataList;
       tableData.value.sort((a, b) => {
         // 假设 a.runnerTime 和 b.runnerTime 是日期字符串
@@ -122,7 +122,7 @@ const calculateData = (data: RunData[]) => {
 // 获取用户数据
 const getUserInfo = async () => {
   try {
-    const response = await axios.post(`http://coaixy.bluedog233.cn/front/get_info`, formData);
+    const response = await axios.post(`http://yuedong.diviner.fun/front/get_info`, formData);
     const status = response.data.data.isPush;
     isPush.value = status === "1";
     userData.value.sid = response.data.data.username
@@ -143,7 +143,7 @@ const editNickName = async () => {
   formData.append('sign', getSignFromURL());
   formData.append('nickname', newNickName.value);
   try {
-    const response = await axios.post(`http://coaixy.bluedog233.cn/front/change_nickname`, formData);
+    const response = await axios.post(`http://yuedong.diviner.fun/front/change_nickname`, formData);
     if (response.data.code === 200) {
       ElMessage({ message: '昵称修改成功', type: 'success' });
       await getUserInfo();
@@ -170,7 +170,7 @@ const togglePush = async () => {
     formData.append('isPush', isPushValue);
     switchLoading.value = true;
     // 调用修改推送状态的接口
-    const response = await axios.post(`http://coaixy.bluedog233.cn/front/change_push`, formData);
+    const response = await axios.post(`http://yuedong.diviner.fun/front/change_push`, formData);
     if (response.data.code === 200) {
       ElMessage({ message: '推送状态修改成功', type: 'success' });
       await getUserInfo(); // 刷新用户信息
@@ -268,7 +268,7 @@ const togglePush = async () => {
         <el-divider class="common-divider" />
       </el-main>
       <el-footer class="common-footer" style="text-align: center;">
-        <el-text size="small">悦动金职 © 2024</el-text>
+        <el-text size="small">金职学创 © 2024</el-text>
       </el-footer>
     </el-container>
   </div>

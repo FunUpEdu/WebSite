@@ -49,7 +49,7 @@
         <el-button type="primary" plain @click="goToday">今日数据</el-button>
         <el-button type="primary" plain @click="goBind">重新绑定</el-button>
         <br>
-        <el-text size="small">悦动金职 © 2024</el-text>
+        <el-text size="small">金职学创 © 2024</el-text>
       </el-footer>
     </el-container>
 
@@ -138,7 +138,7 @@ const editNickName = async () => {
   formData.append('sign', getSignFromURL());
   formData.append('nickname', newNickName.value);
   try {
-    const response = await axios.post(`http://coaixy.bluedog233.cn/front/change_nickname`, formData);
+    const response = await axios.post(`http://yuedong.diviner.fun/front/change_nickname`, formData);
     if (response.data.code === 200) {
       ElMessage({message: '昵称修改成功', type: 'success'});
       await getUserInfo();
@@ -173,7 +173,7 @@ const goBind = () => {
 const getUserRank = async () => {
   try {
     const timestamp = new Date().getTime();
-    const response = await axios.get(`http://coaixy.bluedog233.cn/front/rank_index?ts=${timestamp}`, {
+    const response = await axios.get(`http://yuedong.diviner.fun/front/rank_index?ts=${timestamp}`, {
       params: {
         uid: getUidFromURL(),
         sign: getSignFromURL()
@@ -190,7 +190,7 @@ const fetchRankings = async (page: number = 1) => {
   pageNo.value = page;
   const timestamp = new Date().getTime();
   try {
-    const response = await axios.get(`http://coaixy.bluedog233.cn/front/rankings?ts=${timestamp}`, {
+    const response = await axios.get(`http://yuedong.diviner.fun/front/rankings?ts=${timestamp}`, {
       params: {
         pageNum: pageNo.value,
         pageSize: pageSize.value,
@@ -206,7 +206,7 @@ const fetchRankings = async (page: number = 1) => {
 // 获取用户数据
 const getUserInfo = async () => {
   try {
-    const response = await axios.post(`http://coaixy.bluedog233.cn/front/get_info`, formData);
+    const response = await axios.post(`http://yuedong.diviner.fun/front/get_info`, formData);
     userData.value.nickName = response.data.data.nickName;
   } catch (error) {
     console.error("错误:", error);

@@ -37,7 +37,7 @@ const UserData = ref<UserData>({
 // 获取用户数据
 const getUserInfo = async () => {
   try {
-    const response = await axios.post(`http://coaixy.bluedog233.cn/front/get_info`, formData);
+    const response = await axios.post(`http://yuedong.diviner.fun/front/get_info`, formData);
     UserData.value.sid = response.data.data.username
   } catch (error) {
     console.error("错误:", error);
@@ -74,14 +74,14 @@ const getData = async () => {
   try {
     Loading.value = true;
 
-    const verifyFlag = await axios.post(`http://coaixy.bluedog233.cn/front/verify_sign`, formData).then(res => {
+    const verifyFlag = await axios.post(`http://yuedong.diviner.fun/front/verify_sign`, formData).then(res => {
       if (res.data.data !== true) {
         ElMessage.error('sign校验失败');
         return;
       }
     });
 
-    const response = await axios.post(`http://coaixy.bluedog233.cn/front/get_all_data`, formData).then(res => {
+    const response = await axios.post(`http://yuedong.diviner.fun/front/get_all_data`, formData).then(res => {
       if (res.data.code === 200) {
         ElMessage({ message: '数据获取成功', type: 'success' });
         tableData.value = res.data.data.runnerDataList;
@@ -155,7 +155,7 @@ const getData = async () => {
         </div>
       </el-main>
       <el-footer class="common-footer">
-        <div style="text-align: center"><el-text size="small"> 悦动金职 © 2024 </el-text></div>
+        <div style="text-align: center"><el-text size="small"> 金职学创 © 2024 </el-text></div>
       </el-footer>
     </el-container>
   </div>
